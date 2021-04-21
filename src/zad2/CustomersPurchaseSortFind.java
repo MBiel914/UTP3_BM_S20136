@@ -46,20 +46,20 @@ public class CustomersPurchaseSortFind {
 	}
 
 	public void showSortedBy(String sortType) {
-		Comparator<Purchase> sortByNazwisko = Comparator.comparing(Purchase::getNazwisko).thenComparing(Purchase::getId_klienta);
-		Comparator<Purchase> sortByKoszt = Comparator.comparingDouble(Purchase::getKoszt).reversed().thenComparing(Purchase::getId_klienta);
+		Comparator<Purchase> sortBySurname = Comparator.comparing(Purchase::getSurname).thenComparing(Purchase::getId);
+		Comparator<Purchase> sortByCost = Comparator.comparingDouble(Purchase::getCost).reversed().thenComparing(Purchase::getId);
 		
 		switch (sortType) {
 			case "Nazwiska":
 				System.out.println(sortType);
 				
-				_purchaseList.stream().sorted(sortByNazwisko).forEach(System.out::println);
+				_purchaseList.stream().sorted(sortBySurname).forEach(System.out::println);
 				break;
 	
 			case "Koszty":
 				System.out.println(sortType);
 				
-				_purchaseList.stream().sorted(sortByKoszt).forEach(e -> System.out.println(e + " (koszt: " + e.koszt + ")"));
+				_purchaseList.stream().sorted(sortByCost).forEach(e -> System.out.println(e + " (koszt: " + e.cost + ")"));
 				break;
 		}
 
@@ -68,7 +68,7 @@ public class CustomersPurchaseSortFind {
 
 	public void showPurchaseFor(String id) {
 		System.out.println("Klient " + id);
-		_purchaseList.stream().filter(e -> id.equals(e.getId_klienta())).forEach(System.out::println);
+		_purchaseList.stream().filter(e -> id.equals(e.getId())).forEach(System.out::println);
 		
 		System.out.println();
 	}
